@@ -1,0 +1,76 @@
+<div class="addContainer">
+  <div class="modalHeader">
+    <div class="editRowModal">
+      <div class="modalHeader clearfix">
+        <div class="modal-about">
+          <div class="font-weight-bold p-t-5 font-17">
+            {{dialogTitle}}</div>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button (click)="dialogRef.close()" aria-label="Close dialog">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+  <div mat-dialog-content>
+    <form class="register-form m-4" [formGroup]="medicineListForm" (ngSubmit)="submit">
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Medicine Name</mat-label>
+            <input matInput formControlName="nom" required>
+            <mat-icon matSuffix>medication</mat-icon>
+            <mat-error *ngIf="medicineListForm.get('nom').hasError('required')">
+              Medicine Name is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Description</mat-label>
+            <input matInput formControlName="description" required>
+            <mat-icon matSuffix>store</mat-icon>
+            <mat-error *ngIf="medicineListForm.get('description').hasError('required')">
+              Description is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Price</mat-label>
+            <input matInput formControlName="prix" required>
+            <mat-icon matSuffix>monetization_on</mat-icon>
+            <mat-error *ngIf="medicineListForm.get('prix').hasError('required')">
+              Price is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>Stock</mat-label>
+            <input matInput formControlName="stock" type="number" required>
+            <mat-icon matSuffix>inventory_2</mat-icon>
+            <mat-error *ngIf="medicineListForm.get('stock').hasError('required')">
+              Stock is required
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+          <div class="example-button-row">
+            <button mat-raised-button color="primary" [type]="submit" [disabled]="!medicineListForm.valid"
+              [mat-dialog-close]="1" (click)="confirmAdd()">Save</button>
+            <button mat-raised-button color="warn" (click)="onNoClick()" tabindex="-1">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

@@ -1,0 +1,62 @@
+<div class="auth-container">
+  <div class="row auth-main">
+    <div class="col-sm-6 px-0 d-none d-sm-block">
+      <div class="left-img" style="background-image: url(assets/images/pages/bg-01.png);">
+      </div>
+    </div>
+    <div class="col-sm-6 auth-form-section">
+      <div class="form-section">
+        <div class="auth-wrapper">
+          <h2 class="welcome-msg"> Reset Password </h2>
+          <p class="auth-signup-text text-muted">Let Us Help You</p>
+          <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()">
+            
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>New Password</mat-label>
+                  <input matInput formControlName="newPassword" type="password" required>
+                  <mat-icon matSuffix>lock</mat-icon>
+                  <mat-error *ngIf="authForm.get('newPassword').hasError('required') || authForm.get('newPassword').touched">
+                    Please enter a new password
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>Confirm Password</mat-label>
+                  <input matInput formControlName="confirmPassword" type="password" required>
+                  <mat-icon matSuffix>lock</mat-icon>
+                  <mat-error *ngIf="authForm.get('confirmPassword').hasError('required') || authForm.get('confirmPassword').touched">
+                    Please confirm the password
+                  </mat-error>
+                  <mat-error *ngIf="authForm.hasError('passwordMismatch') && authForm.get('confirmPassword').touched">
+                    Passwords do not match
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+            
+            <div class="container-auth-form-btn mt-5">
+              <button mat-flat-button color="primary" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">
+                Reset My Password
+              </button>
+            </div>
+            <div class="w-full p-t-25 text-center">
+              <div>
+                <a routerLink="/authentication/signin" class="txt1">
+                  Login?
+                </a>
+             
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

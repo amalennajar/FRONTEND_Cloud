@@ -1,0 +1,137 @@
+
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Add Operation'" [items]="['Operations']" [active_item]="'Add Operation'">
+            </app-breadcrumb>
+        </div>
+        <div class="row clearfix">
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Add Operation</strong></h2>
+                    </div>
+                    <div class="body">
+                        <form class="register-form m-4" *ngIf="addOpForm" [formGroup]="addOpForm"
+                            (ngSubmit)="onSubmit()">
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-checkbox formControlName="success"></mat-checkbox>
+                                    &nbsp;
+                                    <mat-label>Successful Operation</mat-label>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field *ngIf="defaultLogistics" appearance="outline">
+                                        <mat-label>Logistics</mat-label>
+                                        <mat-select [formControl]="selectedLogistics" multiple>
+                                            <mat-option *ngFor="let log of defaultLogistics"
+                                                [value]="log">{{log.nomLogi}}</mat-option>
+                                        </mat-select>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Patient name</mat-label>
+                                        <input matInput formControlName="nomP" required>
+                                        <mat-icon matSuffix>info</mat-icon>
+                                        <mat-error *ngIf="addOpForm.get('nomP').hasError('required')">
+                                            Patient name is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Operation type</mat-label>
+                                        <input matInput formControlName="typeOp" required>
+                                        <mat-icon matSuffix>store</mat-icon>
+                                        <mat-error *ngIf="addOpForm.get('typeOp').hasError('required')">
+                                            Operation type is required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Operation date</mat-label>
+                                        <input matInput [matDatepicker]="picker"
+                                            (dateChange)="filterDocsPerDateGiven($event)" formControlName="dateOp">
+                                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                        <mat-datepicker #picker></mat-datepicker>
+                                        <mat-error *ngIf="addOpForm.get('dateOp').hasError('required')">
+                                            Please select date
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Patient email</mat-label>
+                                        <input matInput formControlName="emailP" type="email" required>
+                                        <mat-icon matSuffix>email</mat-icon>
+                                        <mat-error *ngIf="addOpForm.get('emailP').hasError('required')">
+                                            Patient email is required
+                                        </mat-error>
+                                        <mat-error *ngIf="addOpForm.get('emailP').hasError('email')">
+                                            Invalid email
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Room number</mat-label>
+                                        <input matInput formControlName="idChambre" type="number" required>
+                                        <mat-icon matSuffix>tag</mat-icon>
+                                        <mat-error *ngIf="addOpForm.get('idChambre').hasError('required')">
+                                            Room number required
+                                        </mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                                    <div class="example-button-row">
+
+                                        <button mat-raised-button color="primary"
+                                            [disabled]="!addOpForm.valid">Save</button>
+                                        <button type="button" mat-button>Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xl-6 col-lg-6 col-md-6 col-sm-6">
+                <div class="card">
+                    <div class="header">
+                        <h2><strong>Doctors list</strong></h2>
+                    </div>
+                    <div class="body">
+                        <div>
+                            Number of operations for selected doc: {{selectedDocNumberOfOperations}}
+                        </div>
+                        <form class="register-form m-4" *ngIf="addOpForm" [formGroup]="addOpForm">
+                            <mat-selection-list #docNamesSec formControlName="nomChi"
+                                (change)="filterDocsPerDateGiven($event)" [multiple]="false">
+                                <mat-list-option *ngFor="let name of docNames" [value]="name">
+                                    <p> Dr :{{name}} </p>
+                                </mat-list-option>
+                            </mat-selection-list>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

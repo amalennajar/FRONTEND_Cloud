@@ -1,0 +1,123 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'AJOUTER DONATEUR '" [items]="['donateur']" [active_item]="'Add donateur'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong> Ajouter Donateur</strong></h2>
+          </div>
+          <div class="body">
+            <form class="register-form m-4" [formGroup]="donateurlistform" (ngSubmit)="onSubmit()">
+           
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>nom donateur</mat-label>
+                    <input matInput formControlName="nomDonateur" type="text">
+                    <mat-icon matSuffix>add</mat-icon>
+                    <mat-error *ngIf="donateurlistform.get('nomDonateur').hasError('required')">
+                      Nom donateur est invalide
+                    </mat-error>
+                    <mat-error *ngIf="donateurlistform.get('nomDonateur').hasError('pattern')">
+                      Le nom ne doit pas contenir de chiffres
+                    </mat-error>
+                  </mat-form-field>
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>prenom donateur</mat-label>
+                    <input matInput formControlName="prenomDonateur">
+                    <mat-icon matSuffix>add</mat-icon>
+                    <mat-error *ngIf="donateurlistform.get('prenomDonateur').hasError('required')">
+                      nom donateur est invalide
+                    </mat-error>
+                    <mat-error *ngIf="donateurlistform.get('prenomDonateur').hasError('pattern')">
+                      Le prénom ne doit pas contenir de chiffres
+                    </mat-error>
+                  </mat-form-field>
+                  
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>type Sanguin</mat-label>
+                    <input matInput formControlName="typeS">
+                   <!-- // <mat-error *ngIf="donateurlistform.get('nomDonateur').hasError('required')"> -->
+                      <!-- Medicine Name is required -->
+                    <!-- </mat-error> -->
+                  </mat-form-field>
+                </div>
+              </div>
+          
+           
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>date dernier don </mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="dernierDon">
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                    <!-- <mat-error *ngIf="donateurlistform.get('p_date').hasError('required')">
+                      Please select date
+                    </mat-error> -->
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>numéro de téléphone</mat-label>
+                    <input matInput formControlName="numeroTelephone" type="number">
+                    <mat-icon matSuffix>phone</mat-icon> 
+                  </mat-form-field>
+                </div>
+              </div>
+            
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>adresse</mat-label>
+                    <input matInput formControlName="adresse" type="text" >
+                    <mat-icon matSuffix>location_on</mat-icon>
+                  
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>quantité totale</mat-label>
+                    <input matInput formControlName="quantiteTotale" type="number" >
+                    <mat-error *ngIf="donateurlistform.get('quantiteTotale').hasError('required')">
+                      quantite est invalide
+                    </mat-error>
+                    <mat-icon matSuffix>inventory_2</mat-icon>
+                
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <div class="example-button-row">
+                    <button mat-raised-button color="primary" [disabled]="!donateurlistform">Save</button>
+                    
+                    <button type="button" mat-button>Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

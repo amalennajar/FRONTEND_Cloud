@@ -1,0 +1,113 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Staffs'" [items]="['Staffs']" [active_item]="'Add Staffs'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong> Staff Information</strong></h2>
+
+          </div>
+          <div class="body">
+            <form class="m-4" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>First name</mat-label>
+                    <input matInput formControlName="nom" required>
+                    <mat-error *ngIf="staffForm.get('nom').hasError('required')">
+                      First name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Last name</mat-label>
+                    <input matInput formControlName="prenom">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width mb-3" appearance="outline">
+                      <mat-label>Role</mat-label>
+                      <mat-select formControlName="role" [(value)]="selectedRole" required>
+                        <mat-option [value]="{idRole: 1, name: 'admin'}">
+                          Admin
+                        </mat-option>
+                        <mat-option [value]="{idRole: 3, name: 'doctor'}">
+                          Doctor
+                        </mat-option>
+                        <mat-option [value]="{idRole: 5, name: 'stagiare'}">
+                          Stagiare
+                        </mat-option>
+                        <mat-option [value]="{idRole: 4, name: 'biologiste'}">
+                          Biologiste
+                        </mat-option>
+                        <mat-option [value]="{idRole: 2, name: 'pharmacien'}">
+                          Pharmacien
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="staffForm.get('role').hasError('required')">
+                        Role is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="username" required>
+                    <mat-error *ngIf="staffForm.get('username').hasError('required')">
+                      Username is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="password" type="password" required>
+                    <mat-error *ngIf="staffForm.get('password').hasError('required')">
+                      password is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+              
+              
+              <div class="row">
+                <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12 mb-3">
+                  <mat-form-field class="example-full-width mb-3" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required>
+                    <mat-error *ngIf="staffForm.get('email').hasError('email') && staffForm.get('email').touched">
+                      Please enter a valid email address
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+              
+              
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                  <button class="btn-space" [disabled]="!staffForm.valid " mat-raised-button
+                    color="primary">Submit</button>
+                  <button type="button" mat-button>Cancel</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

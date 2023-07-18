@@ -1,0 +1,78 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'Add Medicine'" [items]="['Pharmacy']" [active_item]="'Add Medicine'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="card">
+          <div class="header">
+            <h2><strong> Add Medicine</strong></h2>
+          </div>
+          <div class="body">
+            <form class="register-form m-4" [formGroup]="medicineListForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Medicine</mat-label>
+                    <input matInput formControlName="nom" required>
+                    <mat-icon matSuffix>Medicine</mat-icon>
+                    <mat-error *ngIf="medicineListForm.get('nom').hasError('required')">
+                      Medicine Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width " appearance="outline">
+                    <mat-label>Description</mat-label>
+                    <input matInput formControlName="description" required>
+                    <mat-icon matSuffix>Description</mat-icon>
+                    <mat-error *ngIf="medicineListForm.get('description').hasError('required')">
+                      description is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Price</mat-label>
+                    <input matInput formControlName="prix" required>
+                    <mat-icon matSuffix>monetization_on</mat-icon>
+                    <mat-error *ngIf="medicineListForm.get('prix').hasError('required')">
+                      Price is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <mat-form-field class="example-full-width" appearance="outline">
+                    <mat-label>Stock</mat-label>
+                    <input matInput formControlName="stock" type="number" required>
+                    <mat-icon matSuffix>inventory_2</mat-icon>
+                    <mat-error *ngIf="medicineListForm.get('stock').hasError('required')">
+                      Stock is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                  <div class="example-button-row">
+                    <button mat-raised-button color="primary" [disabled]="!medicineListForm.valid">Save</button>
+                    <button type="button" mat-button>Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,148 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="'BanqueSang'" [active_item]="'Type sanguin et Quantité disponible '">
+      </app-breadcrumb>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+        <div class="card">
+          <div class="body">
+            <div class="table-responsive">
+              <div class="materialTableHeader">
+                <div class="row">
+                  <div class="col-8">
+                    <ul class="header-buttons-left ms-0">
+                     
+                      <li class="dropdown m-l-20">
+                        <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                        <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                          aria-label="Search box">
+                      </li>
+                     
+                    </ul>
+                  </div>
+                  <div class="col-4">
+                    <ul class="header-buttons">
+                     
+                      <li>
+                        <div class="icon-button-demo">
+                          <button mat-mini-fab color="primary" (click)="refresh()">
+                            <mat-icon class="col-white">refresh</mat-icon>
+                          </button>
+                        </div>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+                 
+              <mat-table #table [dataSource]="dataSource" matSort class="mat-cell">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                  <mat-header-cell *matHeaderCellDef [ngClass]="'tbl-col-width-per-6'">
+                    <mat-checkbox (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()" [ngClass]="'tbl-checkbox'">
+                    </mat-checkbox>
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'">
+                    <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)" [ngClass]="'tbl-checkbox'">
+                    </mat-checkbox>
+                  </mat-cell>
+                </ng-container>
+                <!-- ID Column -->
+                <ng-container matColumnDef="idBanqueSang">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-6'">
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row" [ngClass]="'tbl-col-width-per-6'"> {{row.idBanqueSang}}</mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="company">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-100'">quantite totale
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="truncate-text"
+                      [ngClass]="'tbl-col-width-per-80'">{{row.quantiteTotale}}</span></mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="category">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header [ngClass]="'tbl-col-width-per-100'">type Sanguin
+                  </mat-header-cell>
+                  <mat-cell *matCellDef="let row"> <span class="truncate-text"
+                      [ngClass]="'tbl-col-width-per-80'">{{row.typeSanguin}}</span></mat-cell>
+                </ng-container> 
+                <ng-container matColumnDef="sang">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>sang Retire</mat-header-cell>
+                  <mat-cell *matCellDef="let row"> {{row.sangRetire}}</mat-cell>
+                </ng-container>
+        
+          
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
+                <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                  [style.cursor]="'pointer'" matRipple>
+                </mat-row>
+              </mat-table> 
+              <div class="d-flex justify-content-center align-items-center" style="height: 70vh;">
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-header">
+                      <h4 class="card-title">Retirer Sang</h4>
+                    </div>
+                    <div class="card-body custom-card-body">
+                      <form (ngSubmit)="retirerSang()" #form="ngForm">
+                        <div class="mb-2">
+                          <label for="idBanqueSang" class="form-label">Numéro Banque Sang</label>
+                          <input type="number" class="form-control" id="idBanqueSang" name="idBanqueSang" [(ngModel)]="idBanqueSang">
+                        </div>
+                        <div class="mb-3">
+                          <label for="quantiteSangRetiree" class="form-label">Quantite a retirer</label>
+                          <input type="number" class="form-control" id="quantiteSangRetiree" name="quantiteSangRetiree" [(ngModel)]="quantiteSangRetiree">
+                        </div>
+                        <button mat-raised-button color="primary" class="w-100 mt-3">Retirer Sang</button>
+                      </form>
+                    </div>
+                  </div>
+                </div>
+              
+                <div class="col-md-6">
+                  <div class="card">
+                    <div class="card-body">
+                      <h5 class="card-title" style="color: black;">Sang Retiré Statistics</h5>
+              
+                      <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let banque of banques">
+                          {{ banque.typeSanguin }}
+                          <div class="progress shadow-style">
+                            <div class="progress-bar l-bg-orange width-per-74" role="progressbar"
+                              [style.width.%]="banque.sangRetirePercentage" [attr.aria-valuenow]="banque.sangRetirePercentage"
+                              aria-valuemin="0" aria-valuemax="100">{{banque.sangRetirePercentage | number: '1.0-2'}}%
+                            </div>
+                          </div>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+              </div>
+               
+              <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
+                <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
+                </mat-progress-spinner>
+              </div>
+              <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
+                [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
+                No results
+              </div>
+              <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
+                [pageSizeOptions]="[5, 10, 25, 100]">
+              </mat-paginator>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+<!-- </section> -->

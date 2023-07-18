@@ -1,0 +1,51 @@
+<!-- mes-cours.component.html -->
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <app-breadcrumb [title]="'Cours'" [active_item]="'Mes Cours'"></app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <div class="card">
+          <div class="header">
+            <div class="col-xs-12 col-sm-6">
+              <h2>
+                <strong>Mes Cours</strong>
+              </h2>
+            </div>
+          </div>
+          <div class="body">
+            <div class="row">
+              <div class="col-md-4" *ngFor="let course of courseData">
+                <div class="card border-apply">
+                  <div class="m-b-20">
+                    <div class="contact-grid">
+                      <div class="profile-header bg-dark">
+                        <div class="user-name">{{ course?.course_name }}</div>
+                        <div class="name-center">{{course?.doctor?.username}} </div>
+                      </div>
+                      <div >
+                        <div class="name-center">
+                          {{ course?.description }}
+                        </div>
+                        <div class="name-center">
+                          {{ course?.date | date: 'dd/MM/yyyy'}}
+                        </div>
+                        <div class="name-center">
+                          {{ course?.duration}} 
+                        </div>
+                        <div class="profile-userbuttons">
+                          <button mat-flat-button color="primary">Read More</button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

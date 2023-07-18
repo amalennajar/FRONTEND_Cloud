@@ -1,0 +1,95 @@
+<section class="content">
+    <div class="content-block">
+        <div class="block-header">
+            <!-- breadcrumb -->
+            <app-breadcrumb [title]="'Add Operation'" [items]="['Operations']" [active_item]="'Add Operation'">
+            </app-breadcrumb>
+        </div>
+<div class="container mt-5">
+    <div class="row">
+        <div class="col">
+            <h2>Operations List</h2>
+        </div>
+    </div>
+
+    <div class="row mt-3">
+        <div class="col-md-9">
+            <div class="materialTableHeader">
+                <div class="row">
+                    <div class="col-8">
+                        <ul class="header-buttons-left ms-0">
+                            <li class="dropdown m-l-20">
+                                <label for="search-input"><i class="material-icons search-icon">search</i></label>
+                                <input placeholder="Search" type="text" #filter class="browser-default search-field"
+                                    name="searchTerm" [(ngModel)]="searchTerm" (input)="filterOperations()"
+                                    aria-label="Search box">
+                            </li>
+                            <li>
+                                <button mat-button [matMenuTriggerFor]="menu" class="header-dropdown">
+                                    <mat-icon>filter_list</mat-icon>
+                                </button>
+                                <mat-menu #menu="matMenu">
+                                    <button mat-menu-item (click)="sortByType()">Type</button>
+                                    <button mat-menu-item (click)="sortByDate()">Date</button>
+                                    <button mat-menu-item (click)="sortByTypeAndDate()">Type and Date</button>
+                                </mat-menu>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Success</th>
+                        <th>nom chirurgien</th>
+                        <th>nom patient</th>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Room ID</th>
+                        <th>EMAIL</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let operation of filteredOperations | 
+                         slice: lowValue : highValue">
+                        <td>{{ operation.idOp }}</td>
+                        <td>
+                            <mat-checkbox checked="{{operation.success}}" disabled></mat-checkbox>
+                        </td>
+                        <td>{{ operation.nomChi }}</td>
+                        <td>{{ operation.nomP }}</td>
+                        <td>{{ operation.dateOp | date: 'yyyy-MM-dd' }}</td>
+                        <td>{{ operation.typeOp }}</td>
+                        <td>{{ operation.idChambre }}</td>
+                        <td>{{ operation.emailP }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <mat-paginator [length]="filteredOperations.length" pageSize=10 (page)="getPaginatorData($event)"
+                [pageSizeOptions]="[10, 20, 30]" showFirstLastButtons="false">
+            </mat-paginator>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Success Rates by Type</h5>
+                    <ul class="list-group">
+                        <li class="list-group-item" *ngFor="let rate of successRates | keyvalue">
+                            {{ rate.key }}
+                            <div class="progress shadow-style">
+                                <div class="progress-bar l-bg-orange width-per-{{rate.value *  100}}" role="progressbar"
+                                    [aria-valuenow]="rate.value" aria-valuemin="0" aria-valuemax="100">
+                                    {{rate.value*100}}%
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+</section>

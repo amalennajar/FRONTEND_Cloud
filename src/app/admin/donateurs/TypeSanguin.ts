@@ -1,0 +1,10 @@
+export enum TypeSanguin {
+    A_POSITIF = 'A_POSITIF',
+    A_NEGATIF = 'A_NEGATIF',
+    B_POSITIF = 'B_POSITIF',
+    B_NEGATIF = 'B_NEGATIF',
+    AB_POSITIF = 'AB_POSITIF',
+    AB_NEGATIF = 'AB_NEGATIF',
+    O_POSITIF = 'O_POSITIF',
+    O_NEGATIF = 'O_NEGATIF',
+  }

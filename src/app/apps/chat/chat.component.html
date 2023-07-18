@@ -1,0 +1,47 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb></app-breadcrumb>
+    </div>
+    <div class="row">
+
+      <div class="col-xs-12 col-sm-12 col-md-9 col-lg-12">
+        <div class="card">
+          <div class="chat">
+            <div class="chat-history" id="chat-conversation" style="position: relative; max-height: 449px;"
+              [perfectScrollbar] #scrollMe [scrollTop]="scrollMe.scrollHeight">
+              <!-- <div id="history"> -->
+                <div *ngFor="let chat of chats" >
+                  <mat-card  class="mb-4">
+                    <mat-card-subtitle>
+                      <span> <strong>{{chat.username}} </strong> Sent: ({{chat.timestamp | date:'short'}})</span>
+                    </mat-card-subtitle>
+                    <mat-card-content>
+                      <p>{{chat.message}}</p>
+                    </mat-card-content>
+                  </mat-card>
+                </div>
+              <!-- </div> -->
+            </div>
+          </div>
+          <div class="chat-message clearfix">
+            <div class="form-group">
+              <div class="form-line">
+                <form id="message" [formGroup]="form" (ngSubmit)="onChatSubmit(form.value)">
+                  <mat-form-field class="example-full-width" appearance="outline" [floatLabel]="false">
+                    <mat-label>Enter Chat</mat-label>
+                    <input matInput formControlName="message">
+                    <button type="submit" matSuffix mat-icon-button aria-label="Submit">
+                      <mat-icon>send</mat-icon>
+                    </button>
+                  </mat-form-field>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
